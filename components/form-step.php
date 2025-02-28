@@ -7,7 +7,7 @@ $answers = $args['answers'] ?? [];
 
 
 <div class="form-step <?php echo $index == 0?'is-active':'' ?>">
-    <label for="nombre"><?php echo esc_html($question); ?></label>
+    <label class="question-title" for="nombre"><?php echo esc_html($question); ?></label>
     <div class="checks">
         
         <?php foreach ($answers as $answer) : ?>
@@ -21,22 +21,13 @@ $answers = $args['answers'] ?? [];
         <?php endforeach; ?>
     </div>
 
-    <?php if($index == 0):?>
-    <div class="btns">
-        <button type="button" class="btn btn-next">Siguiente</button>
-    </div>
-    <?php endif;?>
-    <?php if($index > 0 && $index < $size):?>
-    <div class="btns">
-        <button type="button" class="btn btn-prev">Atrás</button>
-        <button type="button" class="btn btn-next">Siguiente</button>
-    </div>
+    <?php if($index >= 0 && $index < $size):?>
+    <button type="button" class="btn btn-next">Siguiente</button>
     <?php endif;?>
     <?php if($index == $size):?>
-        <div class="btns">
-            <button type="button" class="btn btn-prev">Atrás</button>
-            <button type="submit" class="btn btn-submit">Enviar</button>
-        </div>
+    <div class="btns">
+        <button type="submit" class="btn btn-submit">Enviar</button>
+    </div>
     <?php endif;?>
 </div>
 

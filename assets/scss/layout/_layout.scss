@@ -1,27 +1,12 @@
 /* ========================== */
 /*         LAYOUT             */
 /* ========================== */
+
 .form-container {
-    width: 100%;
-    min-width: 40vw;
-    max-width: 800px;
     background: white;
-    padding: 2em;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.checks{
-    margin-block: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.1em;
-}
-
-.check-answer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    line-height: 1.2em;
+    width: 100%;
+    max-width: 600px;
 }

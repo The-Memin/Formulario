@@ -1,13 +1,10 @@
+/* Base */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-}	
-input[type="radio"] {
-    display: none; /* Oculta el radio button original */
 }
