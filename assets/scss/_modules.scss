@@ -1,64 +1,69 @@
-/* ========================== */
-/*         MODULES            */
-/* ========================== */
-.form-step {
-    display: none;
+.form-step{
+    min-width: 30em;
+    min-height: 20em;
+    max-width: 40em;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.form-step.is-active {
-    display: block;
+.checks{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
 }
-.check-answer {
+
+.check-answer{
     display: flex;
     align-items: center;
-    margin: 10px 0;
-}
-
-.check-answer input[type="radio"] {
-    display: none;
-}
-
-.check-answer label {
+    gap: 10px;
     cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
-    transition: 0.3s ease;
-    width: 100%;
-    text-align: center;
-    border: 2px solid #ccc;
-}
-
-.check-answer input[type="radio"]:checked + label {
-    background-color: $green-1;
-    color: white;
-    border: 2px solid $green-1;
+    input[type="radio"]{
+        cursor: pointer;
+    }
+    label{
+        cursor: pointer;
+        line-height: 1.4em;
+    }
 }
 
 .question-title{
-    font-size: 1.2em;
     line-height: 1.2em;
+    font-size: 22px;
 }
 
-/* Botones */
-.btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #7f7f7f;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 15px;
+.btn{
+    width: fit-content;
+    min-width: 15em;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border:2px solid #b2b2b2;
+    color: #666666;
 }
 
-.btn:hover {
-    background-color: $green-1;
+.btn-next{
+    pointer-events: none;
+    &.active{
+        pointer-events: all;
+        cursor: pointer;
+        background-color: $green-1;
+        color: #ffffff;
+        border: 2px solid $green-1;
+    }
 }
 
-.btn-submit {
-    background-color: #0E1514;
-}
-
-.btn-submit:hover {
-    background-color: $green-1;
+.btn-submit{
+    &.active{
+        pointer-events: all;
+        cursor: pointer;
+        background-color: $blue-1;
+        color: #ffffff;
+        border: 2px solid $blue-1;
+    }
 }

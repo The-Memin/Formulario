@@ -6,21 +6,20 @@ require 'data/form-questions.php';
 ?>
 <?php get_header() ?>
 
-	<div class="form-container">
-        <form class="form-container__form" id="multiStepForm">
-            <?php
-			$size_questions = count($questions);
-			foreach($questions as $index => $question){
-				$args = array(
-					'index' => $index,
-					'size' => $size_questions-1, 
-					'question' => $question['question'],
-                    'answers' => $question['answers']
-				);
-				get_template_part('components/form', 'step', $args);
-			}
-			?>
-        </form>
+	<div class="m-form-container">
+		<h1></h1>
+        
+		<div class="form-step">
+			<label id="question-title" for="nombre"></label>
+
+			<div class="checks">
+				<div class="check-answer">
+					<input type="radio" id="" name="" value="">
+					<label for="">
+					</label>
+				</div>
+			</div>
+		</div>
     </div>
 
 
