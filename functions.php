@@ -117,7 +117,82 @@ if( function_exists('acf_add_options_page') ) {
     'parent_slug'   => $parent['menu_slug'],
   ));
 
+  acf_add_options_sub_page(array(
+    'page_title'    => 'Tabla de resultados',
+    'menu_title'    => 'Tabla de resultados',
+    'parent_slug'   => $parent['menu_slug'],
+  ));
+
+}
+
+function cargar_info_ajax() {
+  // Verifica si la petición tiene un parámetro
+  if (isset($_POST['archivo'])) {
+      $archivo = sanitize_text_field($_POST['archivo']);
+      $ruta = get_template_directory() . "/data/{$archivo}.json"; // Ruta de tu archivo en la carpeta "data"
+
+      if (file_exists($ruta)) {
+          $contenido = file_get_contents($ruta);
+          echo $contenido; // Devuelve el contenido JSON
+      } else {
+          echo json_encode(["error" => "Archivo no encontrado"]);
+      }
+  }
+  wp_die(); // Cierra la petición AJAX de WordPress
+}
+
+// Hooks para permitir llamadas AJAX autenticadas y no autenticadas
+add_action('wp_ajax_cargar_info', 'cargar_info_ajax');
+add_action('wp_ajax_nopriv_cargar_info', 'cargar_info_ajax');
+
+function my_enqueue_scripts() {
+  wp_enqueue_script('code', get_template_directory_uri() . '/assets/code/general/code.js', ['jquery'], null, true);
+  wp_localize_script('code', 'ajax_var', ['url' => admin_url('admin-ajax.php')]);
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
+
+function agregar_metabox_formulario() {
+  add_meta_box(
+      'detalles_formulario',
+      'Detalles del Formulario',
+      'mostrar_metabox_formulario',
+      'cuestionarios', // Nombre del CPT donde aparecerá
+      'normal',
+      'high'
+  );
+}
+add_action('add_meta_boxes', 'agregar_metabox_formulario');
+
+function mostrar_metabox_formulario($post) {
+  $nombre = get_post_meta($post->ID, 'nombre', true);
+  $email = get_post_meta($post->ID, 'email', true);
+  $telefono = get_post_meta($post->ID, 'telefono', true);
+
+  echo '<p><strong>Nombre:</strong> ' . esc_html($nombre) . '</p>';
+  echo '<p><strong>Email:</strong> ' . esc_html($email) . '</p>';
+  echo '<p><strong>Teléfono:</strong> ' . esc_html($telefono) . '</p>';
+}
+
+function agregar_metabox_pdf() {
+  add_meta_box(
+      'pdf_formulario',
+      'Archivo PDF del Formulario',
+      'mostrar_metabox_pdf',
+      'cuestionarios',
+      'normal',
+      'high'
+  );
+}
+add_action('add_meta_boxes', 'agregar_metabox_pdf');
+
+function mostrar_metabox_pdf($post) {
+  $pdf_url = get_post_meta($post->ID, 'archivo_pdf', true);
+
+  if ($pdf_url) {
+      echo '<p><a href="' . esc_url($pdf_url) . '" target="_blank">📄 Descargar PDF</a></p>';
+  } else {
+      echo '<p>No hay PDF disponible.</p>';
+  }
 }
 
 ?>
-
