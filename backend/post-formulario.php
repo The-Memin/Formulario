@@ -1,7 +1,7 @@
 <?php
 // Cargar DomPDF
 require_once get_template_directory() . '/dompdf/autoload.inc.php';
-
+require_once get_template_directory() . '/backend/form-html.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 $custom_logo_id = get_theme_mod('custom_logo');
@@ -90,33 +90,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
         $dompdf->setOptions($options);
         $logo_path = get_template_directory() . '/assets/images/logo-dip-insait.jpg';
         $logo_path_file = 'file://' . $logo_path;
-        $html = '
-                <html>
-                <head>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif; 
-                        }
-                        .header {
-                            text-align: center;
-                            margin-bottom: 50px;
-                        }
-                        .header img {
-                            width: 220px;
-                            height: auto;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <header class="header">
-                       <img src="' . esc_url(get_field('logo','option')) . '" alt="Logotipo">
-                    </header>
-                    <h3 style="color: #008DC2; text-transform: capitalize;">Resultados</h3>'.
-                    $resultado_str
-                    .'
-                </body>
-                </html>
-                ';
+        // $html = '
+        //         <html>
+        //         <head>
+        //             <style>
+        //                 body {
+        //                     font-family: Arial, sans-serif; 
+        //                 }
+        //                 .header {
+        //                     text-align: center;
+        //                     margin-bottom: 50px;
+        //                 }
+        //                 .header img {
+        //                     width: 220px;
+        //                     height: auto;
+        //                 }
+        //             </style>
+        //         </head>
+        //         <body>
+        //             <header class="header">
+        //                <img src="' . esc_url(get_field('logo','option')) . '" alt="Logotipo">
+        //             </header>
+        //             <h3 style="color: #008DC2; text-transform: capitalize;">Resultados</h3>'.
+        //             $resultado_str
+        //             .'
+        //         </body>
+        //         </html>
+        //         ';
         $dompdf->loadHtml($html);
         $dompdf->setPaper('letter', 'portrait');
         $dompdf->render();

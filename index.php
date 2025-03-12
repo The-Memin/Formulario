@@ -10,6 +10,8 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 
 <div class="l-container">
 	<?php if (empty($mensaje) && !$form_true) : ?>
+		<img class="m-logo" src="<?php echo esc_url(get_field('logo','option'));?>" alt="logo-dip-insait">
+		<p class="m-welcome">Bienvenido. Empecemos con tu diagnóstico empresarial</p>
 		<form class="m-form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="POST">
 			<legend>¿La empresa es familiar?</legend>
 			<div class="m-flex-col my-2">
@@ -26,7 +28,7 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 		</form>
 	<?php endif;?>
 	<?php if ($form_true) : ?>
-	<img class="m-logo" src="<?php echo $img_url;?>" alt="logo-dip-insait">
+	<img class="m-logo" src="<?php echo esc_url(get_field('logo','option'));?>" alt="logo-dip-insait">
 
 	<div class="progress-container">
 		<div class="m-precentajes">

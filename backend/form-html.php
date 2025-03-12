@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang='en'>
+<?php 
+include 'form-style.php';
+$html = "
+<html>
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Resultados</title>
-    <style>
+<style>
         *{
             color: #242424;
             font-family: Arial, Helvetica, sans-serif;
@@ -19,7 +18,7 @@
     </style>
 </head>
 <body>
-    <div>
+    <div class='container-pdf'>
         <header style='margin-bottom:3em'>
             <h1 style='text-align: center;'>Diagnostico empresarial</h1>
             <p style='text-align: center; color:#787878; font-size: .85em'>Formulario llenado el 10 de Marzo de 2025</p>
@@ -105,3 +104,6 @@
     </div>
 </body>
 </html>
+"
+
+?>
