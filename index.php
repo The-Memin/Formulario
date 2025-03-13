@@ -75,6 +75,7 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 	<?php endif; ?>
 
 	<?php if (!empty($mensaje)) : ?>
+	<img class="m-logo" src="<?php echo esc_url(get_field('logo','option'));?>" alt="logo-dip-insait">
     <div class="l-mensaje">
         <h3><?php echo $mensaje;?></h3>
 		<button class="btn btn-return">Volver al formulario</button>

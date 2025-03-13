@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
 
     // Calcular promedios y ponderaciones
     
-    $sum_not_fam = $is_familiar ? 0 : 5.55;
+    $sum_not_fam = $is_familiar ? 0 : 5.555;
     foreach ($respuestas as $area => $puntuaciones) {
         $suma = array_sum(array_map('intval', $puntuaciones));
         $cantidad = count($puntuaciones);
@@ -54,8 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
     $_SESSION['resultados'] = $resultados;
 
     // Calcular ponderación total
-    $ponderacion_total = array_sum(array_column($resultados, 'ponderacion'));
-    $_SESSION['ponderacion_total'] = $ponderacion_total;
+    $ponderacion_total = round(array_sum(array_column($resultados, 'ponderacion')), 2);
+    $_SESSION['ponderacion_total'] = round($ponderacion_total, 2);
     // Determinar resultado final
     $resultados_area = [];
     $resultado_global = 'no_init';
@@ -78,53 +78,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
         }
     }
     $_SESSION['resultados_area'] = $resultados_area;
+    $_SESSION['mensaje'] = "Prueba";
     // Generar y enviar el PDF
-    if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        $dompdf = new Dompdf();
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $dompdf->setOptions($options);
-        $logo_path = get_template_directory() . '/assets/images/logo-dip-insait.jpg';
-        $logo_path_file = 'file://' . $logo_path;
+    // if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    //     $html = get_html($resultados_area, $resultado_global, $ponderacion_total);
+    //     $dompdf = new Dompdf();
+    //     $options = new Options();
+    //     $options->set('isHtml5ParserEnabled', true);
+    //     $options->set('isPhpEnabled', true);
+    //     $options->set('isRemoteEnabled', true);
+    //     $dompdf->setOptions($options);
+    //     $logo_path = get_template_directory() . '/assets/images/logo-dip-insait.jpg';
+    //     $logo_path_file = 'file://' . $logo_path;
        
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('letter', 'portrait');
-        $dompdf->render();
+    //     $dompdf->loadHtml($html);
+    //     $dompdf->setPaper('letter', 'portrait');
+    //     $dompdf->render();
 
-        $upload_dir = wp_upload_dir();
-        $pdf_path = $upload_dir['path'] . '/resultados-' . $nombre . '.pdf';
-        $pdf_url = $upload_dir['url'] . "/resultados-$nombre.pdf";
-        file_put_contents($pdf_path, $dompdf->output());
+    //     $upload_dir = wp_upload_dir();
+    //     $pdf_path = $upload_dir['path'] . '/resultados-' . $nombre . '.pdf';
+    //     $pdf_url = $upload_dir['url'] . "/resultados-$nombre.pdf";
+    //     file_put_contents($pdf_path, $dompdf->output());
 
-        $message = "Gracias por tu mensaje, adjuntamos el PDF con los detalles del formulario.";
-        $attachments = [$pdf_path];
-        $subject = "Tus resultados del formulario";
-        $headers = "From: no-reply@.com\r\nContent-Type: text/plain; charset=UTF-8\r\n";
+    //     $message = "Gracias por tu mensaje, adjuntamos el PDF con los detalles del formulario.";
+    //     $attachments = [$pdf_path];
+    //     $subject = "Tus resultados del formulario";
+    //     $headers = "From: no-reply@.com\r\nContent-Type: text/plain; charset=UTF-8\r\n";
 
-        if (wp_mail($correo, $subject, $message, $headers, $attachments)) {
-            $_SESSION['mensaje'] = "Hola $nombre, tus resultados fueron enviados correctamente al correo $correo";
-            $_SESSION['form_true'] = false;
-            $nuevo_post = [
-                'post_title'  => 'Formulario de ' . $nombre,
-                'post_status' => 'publish',
-                'post_type'   => 'cuestionarios',
-                'meta_input'  => [
-                    'email' => $correo,
-                    'nombre' => $nombre,
-                    'telefono' => $phone,
-                    'archivo_pdf' => $pdf_url
-                ]
-            ];
-            wp_insert_post($nuevo_post);
-        } else {
-            $_SESSION['mensaje'] = "Hubo un error al enviar el correo.";
-        }
+    //     if (wp_mail($correo, $subject, $message, $headers, $attachments)) {
+    //         $_SESSION['mensaje'] = "Hola $nombre, tus resultados fueron enviados correctamente al correo $correo";
+    //         $_SESSION['form_true'] = false;
+    //         $nuevo_post = [
+    //             'post_title'  => 'Formulario de ' . $nombre,
+    //             'post_status' => 'publish',
+    //             'post_type'   => 'cuestionarios',
+    //             'meta_input'  => [
+    //                 'email' => $correo,
+    //                 'nombre' => $nombre,
+    //                 'telefono' => $phone,
+    //                 'archivo_pdf' => $pdf_url
+    //             ]
+    //         ];
+    //         wp_insert_post($nuevo_post);
+    //     } else {
+    //         $_SESSION['mensaje'] = "Hubo un error al enviar el correo.";
+    //     }
 
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    }
+    //     header("Location: " . $_SERVER['PHP_SELF']);
+    //     exit();
+    // }
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['familiar-send'])){
