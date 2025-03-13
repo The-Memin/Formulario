@@ -80,7 +80,12 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 		<button class="btn btn-return">Volver al formulario</button>
     </div>
 	<?php
-	include 'forResult.php';
+	$args = [
+		'resultados'=>$resultados_area,
+		'resultado_global'=>$resultado_global,
+		'ponderacion_total'=>$ponderacion_total,
+	];
+	get_template_part('components/form', 'htmltest', $args);
 	?>
 	<?php endif; ?>
 </div>

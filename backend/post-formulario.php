@@ -55,31 +55,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
 
     // Calcular ponderación total
     $ponderacion_total = array_sum(array_column($resultados, 'ponderacion'));
-    
+    $_SESSION['ponderacion_total'] = $ponderacion_total;
     // Determinar resultado final
-    $resultado_str = '';
+    $resultados_area = [];
+    $resultado_global = 'no_init';
     foreach ($tabla_final as $rangos) {
         if ($ponderacion_total > $rangos['rango_inicial'] && $ponderacion_total <= $rangos['rango_final']) {
-            $resultado_str .= '<div><p>' . $rangos["resultado"] . '</p></div>';
+            $resultado_global = $rangos["resultado"];
+            $_SESSION['resultado_global'] = $resultado_global;
         }
     }
 
     foreach ($all_questions as $area => $questions) {
         if ($area != 'familiar' || ($area == 'familiar' && $is_familiar)) {
-            $resultado_str .= '<div><h4 style="color: #008DC2; text-transform: capitalize;">' . $questions[0]['area'] . '</h4>';
             foreach ($questions as $index => $question) {
-                $resultado_str .= '<div>';
                 foreach ($question['answers'] as $answer) {
                     if ($answer['question_weight'] == $respuestas[$area][$index]) {
-                        $resultado_str .= '<span><p>' . ($index + 1) . '.- ' . $answer['consecuencia'] . '</p></span>';
+                        $resultados_area[$questions[0]['area']][$index+1] = $answer;
                     }
-                }
-                $resultado_str .= '</div>';
+                }                
             }
-            $resultado_str .= '</div>';
         }
     }
-
+    $_SESSION['resultados_area'] = $resultados_area;
     // Generar y enviar el PDF
     if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         $dompdf = new Dompdf();
@@ -144,14 +142,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['familiar-send'])){
 
 // Manejo de sesiones
 session_start();
-$mensaje = $_SESSION['mensaje'] ?? '';
-unset($_SESSION['mensaje']);
+
 $respuestas = $_SESSION['response'] ?? '';
 unset($_SESSION['response']);
 $resultados = $_SESSION['resultados'] ?? '';
 unset($_SESSION['resultados']);
+$resultados_area = $_SESSION['resultados_area'] ?? '';
+unset($_SESSION['resultados_area']);
+$resultado_global = $_SESSION['resultado_global'] ?? '';
+unset($_SESSION['resultado_global']);
+$ponderacion_total = $_SESSION['ponderacion_total'] ?? '';
+unset($_SESSION['ponderacion_total']);
+
+
 $form_true = $_SESSION['form_true']?? false;
 unset($_SESSION['form_true']);
 $is_familiar = $_SESSION['is_familiar'] ?? false;
+$mensaje = $_SESSION['mensaje'] ?? '';
+unset($_SESSION['mensaje']);
 
 ?>

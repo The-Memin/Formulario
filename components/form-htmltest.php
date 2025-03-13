@@ -1,59 +1,29 @@
-<?php 
-$html = "
-<html>
-<head>
-    <style>
-        *{
-            color: #242424;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        body *{
-            margin: 0;
-            padding: 0;
-        }
-        h1{
-            font-size: 1.5em;
-        }
-        
-        h2{
-            font-size: 1.2em;
-        }
-        table{
-            position: relative;
-            border-spacing: 0;
-            width: 100%;
-            page-break-inside: auto
-        }
-        thead {
-            display: table-header-group;
-        }        
-        tfoot {
-            display: table-footer-group;
-        }        
-        tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
-        }
-        td, th {
-            padding: 5px;
-            page-break-inside: avoid;
-        }
-        ul{
-            list-style: none;
-        }
-    </style>
-</head>
-<body>
-    <div>
+<?php
+$resultados = $args['resultados'];
+$resultado_global = $args['resultado_global'];
+$ponderacion_total = $args['ponderacion_total'] ?? "none";
+date_default_timezone_set('America/Mexico_City');
+$meses = [
+    "January" => "Enero", "February" => "Febrero", "March" => "Marzo",
+    "April" => "Abril", "May" => "Mayo", "June" => "Junio",
+    "July" => "Julio", "August" => "Agosto", "September" => "Septiembre",
+    "October" => "Octubre", "November" => "Noviembre", "December" => "Diciembre"
+];
+
+$mes = date("F");
+$mes_es = $meses[$mes];
+echo "<div>
         <header style='margin-bottom:3em'>
             <h1 style='text-align: center;'>Diagnostico empresarial</h1>
-            <p style='text-align: center; color:#787878; font-size: .85em'>Formulario llenado el 10 de Marzo de 2025</p>
+            <p style='text-align: center; color:#787878; font-size: .85em'>Formulario llenado el ".date("d")." de ".$mes_es." de ".date("Y")."</p>
         </header>
         <table style='width: 100%; border: 3px solid #FF9E0F; border-radius:8px'>
             <tr>
                 <td style='width: 75%; vertical-align: top; padding:1em 1.4em'>
-                    <h2 style='margin-bottom: .3em;'>Resultado global: 2.26 de 5</h2>
-                    <p>La empresa cuenta con grandes fortalezas y requiere algunos ajustes para potenciar su desempeño. Su fortalecimiento y crecimiento tienen bases importantes.</p>
+                    <h2 style='margin-bottom: .3em;'>Resultado global: de 5 uwu</h2>
+                    <p>
+                    ".$resultado_global."
+                    </p>
                 </td>
                 <td style='width: 25%; vertical-align: top; padding:1em 1.4em; border-left: 1px solid #FF9E0F'>
                     <img src='ruta-a-la-imagen.png' alt='grafica' style='width: 90%; display: block; margin: auto;'>
@@ -165,9 +135,6 @@ $html = "
                 </li>
             </ul>
         </footer>
-    </div>
-</body>
-</html>
-"
+    </div>";
 
 ?>

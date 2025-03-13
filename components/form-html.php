@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+
 $html = "
 <html>
 <head>
@@ -169,5 +171,4 @@ $html = "
 </body>
 </html>
 "
-
 ?>
