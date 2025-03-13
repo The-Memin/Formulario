@@ -1,17 +1,16 @@
 <?php 
 include 'form-style.php';
 $html = "
-<html lang='en'>
+<html>
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Resultados</title>
     <style>
         *{
-            margin: 0;
-            padding: 0;
             color: #242424;
             font-family: Arial, Helvetica, sans-serif;
+        }
+        body *{
+            margin: 0;
+            padding: 0;
         }
         h1{
             font-size: 1.5em;
@@ -21,7 +20,27 @@ $html = "
             font-size: 1.2em;
         }
         table{
+            position: relative;
             border-spacing: 0;
+            width: 100%;
+            page-break-inside: auto
+        }
+        thead {
+            display: table-header-group;
+        }        
+        tfoot {
+            display: table-footer-group;
+        }        
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        td, th {
+            padding: 5px;
+            page-break-inside: avoid;
+        }
+        ul{
+            list-style: none;
         }
     </style>
 </head>
@@ -37,7 +56,7 @@ $html = "
                     <h2 style='margin-bottom: .3em;'>Resultado global: 2.26 de 5</h2>
                     <p>La empresa cuenta con grandes fortalezas y requiere algunos ajustes para potenciar su desempeño. Su fortalecimiento y crecimiento tienen bases importantes.</p>
                 </td>
-                <td style='width: 25%; vertical-align: top; padding:1em 1.4em; border-left: 2px solid #FF9E0F'>
+                <td style='width: 25%; vertical-align: top; padding:1em 1.4em; border-left: 1px solid #FF9E0F'>
                     <img src='ruta-a-la-imagen.png' alt='grafica' style='width: 90%; display: block; margin: auto;'>
                 </td>                
             </tr>
@@ -47,93 +66,101 @@ $html = "
 
             <div>
                 <h3 style='text-align: center;font-size: 1em; margin-bottom: .8em; color: #226fc7'>Administración</h3>
-                <table style='width: 100%; border: 3px solid #116fc7; border-radius:8px'>
-                    <tr>
-                        <td style='width: 75%'>
-                            <div style='display: table; width: 100%; border: 1px solid #116FC7; vertical-align: top'>
-                                <span style='display:table-cell ;width: 15%;border-right: 2px solid #116fc7;padding:1em 1.4em; font-weight: bold; color: #116FC7'>1</span>
-                                <p style='width:85%; display: table-cell;padding:1em 1.4em'>
-                                    No tener objetivos ni saber cuál es el problema más grande de la
-                                    empresa es una enorme área de oportunidad para reenfocarnos en lo
-                                    verderamente importante para que la empresa pueda tener 0.
-                                </p>
-                            </div>
-                            <div style='display: table; width: 100%; border: 1px solid #116FC7; vertical-align: top'>
-                                <span style='display:table-cell ;width: 15%;border-right: 2px solid #116fc7;padding:1em 1.4em; font-weight: bold; color: #116FC7'>1</span>
-                                <p style='width:85%; display: table-cell;padding:1em 1.4em'>
-                                    No tener objetivos ni saber cuál es el problema más grande de la
-                                    empresa es una enorme área de oportunidad para reenfocarnos en lo
-                                    verderamente importante para que la empresa pueda tener 0.
-                                </p>
-                            </div>
-                            <div style='display: table; width: 100%; border: 1px solid #116FC7; vertical-align: top'>
-                                <span style='display:table-cell ;width: 15%;border-right: 2px solid #116fc7;padding:1em 1.4em; font-weight: bold; color: #116FC7'>1</span>
-                                <p style='width:85%; display: table-cell;padding:1em 1.4em'>
-                                    No tener objetivos ni saber cuál es el problema más grande de la
-                                    empresa es una enorme área de oportunidad para reenfocarnos en lo
-                                    verderamente importante para que la empresa pueda tener 0.
-                                </p>
-                            </div>
-                            <div style='display: table; width: 100%; border: 1px solid #116FC7; vertical-align: top'>
-                                <span style='display:table-cell ;width: 15%;border-right: 2px solid #116fc7;padding:1em 1.4em; font-weight: bold; color: #116FC7'>1</span>
-                                <p style='width:85%; display: table-cell;padding:1em 1.4em'>
-                                    No tener objetivos ni saber cuál es el problema más grande de la
-                                    empresa es una enorme área de oportunidad para reenfocarnos en lo
-                                    verderamente importante para que la empresa pueda tener 0.
-                                </p>
-                            </div>
-                            <div style='display: table; width: 100%; border: 1px solid #116FC7; vertical-align: top'>
-                                <span style='display:table-cell ;width: 15%;border-right: 2px solid #116fc7;padding:1em 1.4em; font-weight: bold; color: #116FC7'>1</span>
-                                <p style='width:85%; display: table-cell;padding:1em 1.4em'>
-                                    No tener objetivos ni saber cuál es el problema más grande de la
-                                    empresa es una enorme área de oportunidad para reenfocarnos en lo
-                                    verderamente importante para que la empresa pueda tener 0.
-                                </p>
-                            </div>
-                        </td>
-                        <td style='width: 25%; vertical-align: top; padding:1em 1.4em; border-left: 2px solid #116fc7'>
-                            <img style='position: relative;left:50%; top:50%;transform: translatex(-50%);width: 70%; aspect-ratio: 1; border: 1px solid red' src='' alt=''>
-                        </td>
-                    </tr>
+                
+               <table style='width: 100%; border-left: 3px solid #116FC7; border-right: 3px solid #116FC7; border-radius: 7px;position: ralative'>
+                    <thead >
+                        <tr>
+                            <td style='border-top: 3px solid #116FC7;border-right: 1px solid #116FC7;'></td>
+                            <td style='border-top: 3px solid #116FC7; width: 60%'></td>
+                            <td style='border-top: 3px solid #116FC7; border-left: 1px solid #116FC7;width:25%'></td>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <td style='padding: 0; border-bottom: 1px solid #116FC7; border-right: 1px solid #116FC7;'></td>
+                            <td style='padding: 5em; border-bottom: 1px solid #116FC7; width: 60%'></td>
+                            <td style='padding: 5em; border-left: 1px solid #116FC7; width:25%'></td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 0; border-bottom: 1px solid #116FC7; border-right: 1px solid #116FC7;'></td>
+                            <td style='padding: 5em; border-bottom: 1px solid #116FC7; width: 60%'></td>
+                            <td style='padding: 5em; border-left: 1px solid #116FC7; width:25%'></td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 0; border-bottom: 1px solid #116FC7; border-right: 1px solid #116FC7;'></td>
+                            <td style='padding: 5em; border-bottom: 1px solid #116FC7; width: 60%'></td>
+                            <td style='padding: 5em; border-left: 1px solid #116FC7; width:25%'></td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 0; border-bottom: 1px solid #116FC7; border-right: 1px solid #116FC7;'></td>
+                            <td style='padding: 5em; border-bottom: 1px solid #116FC7; width: 60%'></td>
+                            <td style='padding: 5em; border-left: 1px solid #116FC7; width:25%'></td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 0; border-bottom: 1px solid #116FC7; border-right: 1px solid #116FC7;'></td>
+                            <td style='padding: 5em; border-bottom: 1px solid #116FC7; width: 60%'></td>
+                            <td style='padding: 5em; border-left: 1px solid #116FC7; width:25%'></td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 0; border-bottom: 1px solid #116FC7; border-right: 1px solid #116FC7;'></td>
+                            <td style='padding: 5em; border-bottom: 1px solid #116FC7; width: 60%'></td>
+                            <td style='padding: 5em; border-left: 1px solid #116FC7; width:25%'></td>
+                        </tr>
+                        
+                    </tbody>
+                    <tfoot style='display: table-footer-group;'>
+                        <tr>
+                            <td style='border-bottom: 3px solid #116FC7;border-right: 1px solid #116FC7;'></td>
+                            <td style='border-bottom: 3px solid #116FC7; width: 60%'></td>
+                            <td style='border-bottom: 3px solid #116FC7; border-left: 1px solid #116FC7;width:25%'></td>
+                        </tr>
+                    </tfoot>
                 </table>
+                
             </div>
 
         </div>
-        <div class='note'>
-            <p>
+        <div class='note' style='margin-top: 4em; position: relative; width:80%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 2em 0 2em 1em'>
+            <p style='font-weight:bold; line-height: 1.5em'>
                 Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular tal o mándanos
                 un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
             </p>
         </div>
-        <footer>
-            <ul class='list-social'>
-                <li>
-                    <a href=''>
-                        <img src='assets/images/instagram.png' alt='instagram'>
-                    </a>
-                </li>
-                <li>
-                    <a href=''>
-                        <img src='assets/images/facebook.png' alt='facebook'>
-                    </a>
-                </li>
-                <li>
-                    <a href=''>
-                        <img src='./assets/images/whatsapp.png' alt=''>
-                    </a>
-                </li>
-            </ul>
-            <ul class='list-data'>
-                <li>
-                    <img src='./assets/images/map-solid-36.png' alt=''>
-                    <p>
+
+        
+        <footer style='margin-top: 4em; width:70%; position: relative;left:50%; transform: translateX(-50%);'>
+            <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative'>
+                <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
+                    <li style='display: table-cell; padding-right: 1em;'>
+                        <a href=''>
+                            <img src='assets/images/instagram.png' alt=''>
+                        </a>
+                    </li>
+                    <li style='display: table-cell; padding-right: 1em;'>
+                        <a href=''>
+                            <img src='assets/images/facebook.png' alt=''>
+                        </a>
+                    </li>
+                    <li style='display: table-cell;'>
+                        <a href=''>
+                            <img src='./assets/images/whatsapp.png' alt=''>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <ul class='list-data' style='margin-top:3em; display: table'>
+                <li style='display: table; padding-bottom:1em'>
+                    <img style='display: table-cell; ' src='./assets/images/map-solid-36.png' alt=''>
+                    <p style='display: table-cell; vertical-align: middle; padding-left: .5em'>
                         Plaza Marsala, sobre Vía Atlixcáyotl 3246-2º Piso, local 203B San
                         Martinito, Puebla
                     </p>
                 </li>
-                <li>
-                    <img src='./assets/images/phone-solid-36.png' alt=''>
-                    <p>
+                <li style='display: table'>
+                    <img style='display: table-cell; vertical-align: top' src='./assets/images/phone-solid-36.png' alt=''>
+                    <p style='display: table-cell; vertical-align: middle; padding-left: .5em'>
                         Teléfono/whatsapp: 2215845267
                     </p>
                 </li>
