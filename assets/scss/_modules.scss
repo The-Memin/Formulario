@@ -81,6 +81,7 @@
     padding: 10px 30px;
     border: 1px solid gray;
     border-radius: 5px;
+    
     @include desktop{
         width: fit-content;
         min-width: 10em;
