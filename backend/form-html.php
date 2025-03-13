@@ -8,10 +8,12 @@ $html = "
     <title>Resultados</title>
     <style>
         *{
-            margin: 0;
-            padding: 0;
             color: #242424;
             font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            margin: 0;
+            padding: 0;
         }
         h1{
             font-size: 1.5em;
