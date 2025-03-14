@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-load.php');
-
 $resultados = $args['resultados'];
 $resultado_global = $args['resultado_global'];
 $ponderacion_total = $args['ponderacion_total'] ?? "none";

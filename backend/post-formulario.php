@@ -1,7 +1,5 @@
 <?php
 // Cargar DomPDF
-require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-load.php');
-
 require_once get_template_directory() . '/dompdf/autoload.inc.php';
 require_once get_template_directory() . '/backend/form-html.php';
 require_once get_template_directory() . '/backend/functions-html.php';
