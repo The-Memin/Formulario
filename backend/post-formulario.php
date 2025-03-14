@@ -1,7 +1,10 @@
 <?php
 // Cargar DomPDF
+require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-load.php');
+
 require_once get_template_directory() . '/dompdf/autoload.inc.php';
 require_once get_template_directory() . '/backend/form-html.php';
+require_once get_template_directory() . '/backend/functions-html.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 $custom_logo_id = get_theme_mod('custom_logo');
@@ -80,53 +83,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
     $_SESSION['resultados_area'] = $resultados_area;
     $_SESSION['mensaje'] = "Prueba";
     // Generar y enviar el PDF
-    // if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-    //     $html = get_html($resultados_area, $resultado_global, $ponderacion_total);
-    //     $dompdf = new Dompdf();
-    //     $options = new Options();
-    //     $options->set('isHtml5ParserEnabled', true);
-    //     $options->set('isPhpEnabled', true);
-    //     $options->set('isRemoteEnabled', true);
-    //     $dompdf->setOptions($options);
-    //     $logo_path = get_template_directory() . '/assets/images/logo-dip-insait.jpg';
-    //     $logo_path_file = 'file://' . $logo_path;
-       
-    //     $dompdf->loadHtml($html);
-    //     $dompdf->setPaper('letter', 'portrait');
-    //     $dompdf->render();
-
-    //     $upload_dir = wp_upload_dir();
-    //     $pdf_path = $upload_dir['path'] . '/resultados-' . $nombre . '.pdf';
-    //     $pdf_url = $upload_dir['url'] . "/resultados-$nombre.pdf";
-    //     file_put_contents($pdf_path, $dompdf->output());
-
-    //     $message = "Gracias por tu mensaje, adjuntamos el PDF con los detalles del formulario.";
-    //     $attachments = [$pdf_path];
-    //     $subject = "Tus resultados del formulario";
-    //     $headers = "From: no-reply@.com\r\nContent-Type: text/plain; charset=UTF-8\r\n";
-
-    //     if (wp_mail($correo, $subject, $message, $headers, $attachments)) {
-    //         $_SESSION['mensaje'] = "Hola $nombre, tus resultados fueron enviados correctamente al correo $correo";
-    //         $_SESSION['form_true'] = false;
-    //         $nuevo_post = [
-    //             'post_title'  => 'Formulario de ' . $nombre,
-    //             'post_status' => 'publish',
-    //             'post_type'   => 'cuestionarios',
-    //             'meta_input'  => [
-    //                 'email' => $correo,
-    //                 'nombre' => $nombre,
-    //                 'telefono' => $phone,
-    //                 'archivo_pdf' => $pdf_url
-    //             ]
-    //         ];
-    //         wp_insert_post($nuevo_post);
-    //     } else {
-    //         $_SESSION['mensaje'] = "Hubo un error al enviar el correo.";
-    //     }
-
-    //     header("Location: " . $_SERVER['PHP_SELF']);
-    //     exit();
-    // }
+    if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        // Generar el HTML para el PDF
+        $html = get_html($resultados_area, $resultado_global, $ponderacion_total);
+        $dompdf = new Dompdf();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf->setOptions($options);
+        
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('letter', 'portrait');
+        $dompdf->render();
+        
+        $upload_dir = wp_upload_dir();
+        $pdf_path = $upload_dir['path'] . '/resultados-' . $nombre . '.pdf';
+        $pdf_url = $upload_dir['url'] . "/resultados-$nombre.pdf";
+        file_put_contents($pdf_path, $dompdf->output());
+        
+        // Preparar el contenido HTML del correo
+        // Usamos get_template_directory_uri() para obtener la URL pública del logo
+        $logo_url = get_field('logo', 'option');
+        $message = get_message($logo_url, $nombre);
+        
+        // Establecer cabeceras para enviar email en formato HTML
+        $headers = array(
+            'Content-Type: text/html; charset=UTF-8',
+            'From: no-reply@.com'
+        );
+        
+        $attachments = [$pdf_path];
+        $subject = "Tus resultados del formulario";
+        
+        if (wp_mail($correo, $subject, $message, $headers, $attachments)) {
+            $_SESSION['mensaje'] = "Hola $nombre, tus resultados fueron enviados correctamente al correo $correo";
+            $_SESSION['form_true'] = false;
+            $nuevo_post = [
+                'post_title'  => 'Formulario de ' . $nombre,
+                'post_status' => 'publish',
+                'post_type'   => 'cuestionarios',
+                'meta_input'  => [
+                    'email' => $correo,
+                    'nombre' => $nombre,
+                    'telefono' => $phone,
+                    'archivo_pdf' => $pdf_url
+                ]
+            ];
+            wp_insert_post($nuevo_post);
+        } else {
+            $_SESSION['mensaje'] = "Hubo un error al enviar el correo.";
+        }
+        
+    }
+    
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['familiar-send'])){

@@ -1,62 +1,63 @@
 <?php
-$social_media = get_field('social_media', 'option');
-$contact = get_field('contact', 'option');
 
-$redes = "";
-
-foreach ($social_media as $index => $social) {
-    $img_url = $social['icon'];
-    $link = $social['link'];
-    $padding_r = ($index != count($social))?'padding-right: 1em;':'';
-    $redes .= "<li style='display: table-cell; $padding_r'>
-                    <a href='$link' target='_blank'>
-                        <img src='$img_url' alt='social media'>
-                    </a>
-                </li>";
-}
-
-$info_contact = "";
-foreach ($contact as $index => $item) {
-    $text = $item['text'];
-    $icon_url = $item['icon'];
-    $info_contact .= "<li style='display: table; padding-bottom:1em'>
-                        <img style='display: table-cell; ' src='$icon_url' alt=''>
-                        <p style='display: table-cell; vertical-align: middle; padding-left: .5em'>
-                            $text
-                        </p>
-                    </li>";
-}
-
-date_default_timezone_set('America/Mexico_City');
-$meses = [
-    "January" => "Enero", "February" => "Febrero", "March" => "Marzo",
-    "April" => "Abril", "May" => "Mayo", "June" => "Junio",
-    "July" => "Julio", "August" => "Agosto", "September" => "Septiembre",
-    "October" => "Octubre", "November" => "Noviembre", "December" => "Diciembre"
-];
-
-$mes = date("F");
-$mes_es = $meses[$mes];
-
-$thead = "<thead >
-            <tr>
-                <td style='border-top: 3px solid #116FC7;border-right: 1px solid #116FC7;'></td>
-                <td style='border-top: 3px solid #116FC7; width: 60%'></td>
-                <td style='border-top: 3px solid #116FC7; border-left: 1px solid #116FC7;width:25%'></td>
-            </tr>
-        </thead>";
-
-$tfoot = "<tfoot style='display: table-footer-group;'>
-            <tr>
-                <td style='border-bottom: 3px solid #116FC7;border-right: 1px solid #116FC7;'></td>
-                <td style='border-bottom: 3px solid #116FC7; width: 60%'></td>
-                <td style='border-bottom: 3px solid #116FC7; border-left: 1px solid #116FC7;width:25%'></td>
-            </tr>
-        </tfoot>";
-
-$tables = "";
 
 function get_html($resultados, $resultado_global, $ponderacion_total){
+    $social_media = get_field('social_media', 'option');
+    $contact = get_field('contact', 'option');
+
+    $redes = "";
+
+    foreach ($social_media as $index => $social) {
+        $img_url = $social['icon'];
+        $link = $social['link'];
+        $padding_r = ($index != count($social))?'padding-right: 1em;':'';
+        $redes .= "<li style='display: table-cell; $padding_r'>
+                        <a href='$link' target='_blank'>
+                            <img src='$img_url' alt='social media'>
+                        </a>
+                    </li>";
+    }
+
+    $info_contact = "";
+    foreach ($contact as $index => $item) {
+        $text = $item['text'];
+        $icon_url = $item['icon'];
+        $info_contact .= "<li style='display: table; padding-bottom:1em'>
+                            <img style='display: table-cell; ' src='$icon_url' alt=''>
+                            <p style='display: table-cell; vertical-align: middle; padding-left: .5em'>
+                                $text
+                            </p>
+                        </li>";
+    }
+
+    date_default_timezone_set('America/Mexico_City');
+    $meses = [
+        "January" => "Enero", "February" => "Febrero", "March" => "Marzo",
+        "April" => "Abril", "May" => "Mayo", "June" => "Junio",
+        "July" => "Julio", "August" => "Agosto", "September" => "Septiembre",
+        "October" => "Octubre", "November" => "Noviembre", "December" => "Diciembre"
+    ];
+
+    $mes = date("F");
+    $mes_es = $meses[$mes];
+
+    $thead = "<thead >
+                <tr>
+                    <td style='border-top: 3px solid #116FC7;border-right: 1px solid #116FC7;'></td>
+                    <td style='border-top: 3px solid #116FC7; width: 60%'></td>
+                    <td style='border-top: 3px solid #116FC7; border-left: 1px solid #116FC7;width:25%'></td>
+                </tr>
+            </thead>";
+
+    $tfoot = "<tfoot style='display: table-footer-group;'>
+                <tr>
+                    <td style='border-bottom: 3px solid #116FC7;border-right: 1px solid #116FC7;'></td>
+                    <td style='border-bottom: 3px solid #116FC7; width: 60%'></td>
+                    <td style='border-bottom: 3px solid #116FC7; border-left: 1px solid #116FC7;width:25%'></td>
+                </tr>
+            </tfoot>";
+
+    $tables = "";
     foreach ($resultados as $area => $resultados_area) {
         $tables .= "<div style='margin-bottom: 3em'>
                         <h3 style='text-transform: capitalize;text-align: center;font-size: 1em; margin-bottom: .8em; color: #226fc7; font-weight: bold'>$area</h3>
@@ -71,7 +72,7 @@ function get_html($resultados, $resultado_global, $ponderacion_total){
                                 $index
                             </td>
                             <td style='padding: 1em $border_bottom; width: 60%'>
-                                <p>
+                                <p style='font-size: .9em; line-height: 1.3em'>
                                 ".$resultados['consecuencia']."
                                 </p>
                             </td>
@@ -132,7 +133,7 @@ function get_html($resultados, $resultado_global, $ponderacion_total){
             <div>
                 <header style='margin-bottom:3em'>
                     <h1 style='text-align: center;margin-bottom: .6em'>Diagnostico empresarial</h1>
-                    <p style='text-align: center; color:#787878; font-size: .85em'>Formulario llenado el ".date("d")." de ".$mes_es." de ".date("Y")."</p>
+                    <p style='text-align: center; color:#787878; font-size: .85em'>Formulario llenado el ".date("d")." de $mes_es de ".date("Y")."</p>
                 </header>
                 <table style='width: 100%; border: 3px solid #FF9E0F; border-radius:8px'>
                     <tr>
@@ -161,8 +162,8 @@ function get_html($resultados, $resultado_global, $ponderacion_total){
                 </div>
 
                 
-                <footer style='margin-top: 4em; width:70%; position: relative;left:50%; transform: translateX(-50%);'>
-                    <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative'>
+                <footer style='margin-top: 4em; width:70%; position: relative; left:50%; transform: translateX(-50%)'>
+                    <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative; left:50%; transform: translateX(-50%)'>
                         <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
                             $redes
                         </ul>

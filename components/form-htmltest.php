@@ -1,4 +1,6 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-load.php');
+
 $resultados = $args['resultados'];
 $resultado_global = $args['resultado_global'];
 $ponderacion_total = $args['ponderacion_total'] ?? "none";
@@ -74,7 +76,7 @@ foreach ($resultados as $area => $resultados_area) {
                             $index
                         </td>
                         <td style='padding: 1em $border_bottom; width: 60%'>
-                            <p>
+                            <p style='font-size: .86em; line-height: 1.3em'>
                             ".$resultados['consecuencia']."
                             </p>
                         </td>
@@ -143,7 +145,7 @@ echo "
             <tr>
                 <td style='width: 75%; vertical-align: top; padding:1em 1.4em'>
                     <h2 style='margin-bottom: .3em;'>Resultado global: $ponderacion_total de 5 </h2>
-                    <p>
+                    <p style='line-height: 1.3em'>
                     ".$resultado_global."
                     </p>
                 </td>
@@ -166,8 +168,8 @@ echo "
         </div>
 
         
-        <footer style='margin-top: 4em; width:70%; position: relative'>
-            <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative'>
+        <footer style='margin-top: 4em; width:70%; position: relative; left:50%; transform: translateX(-50%)'>
+            <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative; left:50%; transform: translateX(-50%)'>
                 <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
                     $redes
                 </ul>
