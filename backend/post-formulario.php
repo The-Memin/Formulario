@@ -26,6 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
     $nombre = isset($_POST['nombre']) ? sanitize_text_field($_POST['nombre']) : '';
     $phone = isset($_POST['phone']) ? preg_replace('/[^0-9]/', '', $_POST['phone']) : '';
     
+
+
     // Procesar respuestas
     $respuestas = [];
     foreach ($_POST as $key => $value) {
@@ -33,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
             $index = $matches[1];
             $area = $matches[2];
             $respuestas[$area][$index] = sanitize_text_field($value);
-        }
+        } 
+        
     }
     $_SESSION['response'] = $respuestas;
 
@@ -80,60 +83,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
     }
     $_SESSION['resultados_area'] = $resultados_area;
     $_SESSION['mensaje'] = "Prueba";
-    // Generar y enviar el PDF
-    if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        // Generar el HTML para el PDF
-        $html = get_html($resultados_area, $resultado_global, $ponderacion_total);
-        $dompdf = new Dompdf();
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $dompdf->setOptions($options);
+    //Generar y enviar el PDF
+    // if (!empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    //     // Generar el HTML para el PDF
+    //     $html = get_html($resultados_area, $resultado_global, $ponderacion_total, $resultados);
+    //     $dompdf = new Dompdf();
+    //     $options = new Options();
+    //     $options->set('isHtml5ParserEnabled', true);
+    //     $options->set('isPhpEnabled', true);
+    //     $options->set('isRemoteEnabled', true);
+    //     $dompdf->setOptions($options);
         
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('letter', 'portrait');
-        $dompdf->render();
+    //     $dompdf->loadHtml($html);
+    //     $dompdf->setPaper('letter', 'portrait');
+    //     $dompdf->render();
         
-        $upload_dir = wp_upload_dir();
-        $pdf_path = $upload_dir['path'] . '/resultados-' . $nombre . '.pdf';
-        $pdf_url = $upload_dir['url'] . "/resultados-$nombre.pdf";
-        file_put_contents($pdf_path, $dompdf->output());
+    //     $upload_dir = wp_upload_dir();
+    //     $pdf_path = $upload_dir['path'] . '/resultados-' . $nombre . '.pdf';
+    //     $pdf_url = $upload_dir['url'] . "/resultados-$nombre.pdf";
+    //     file_put_contents($pdf_path, $dompdf->output());
         
-        // Preparar el contenido HTML del correo
-        // Usamos get_template_directory_uri() para obtener la URL pública del logo
-        $logo_url = get_field('logo', 'option');
-        $message = get_message($logo_url, $nombre);
+    //     // Preparar el contenido HTML del correo
+    //     // Usamos get_template_directory_uri() para obtener la URL pública del logo
+    //     $logo_url = get_field('logo', 'option');
+    //     $message = get_message($logo_url, $nombre);
         
-        // Establecer cabeceras para enviar email en formato HTML
-        $headers = array(
-            'Content-Type: text/html; charset=UTF-8',
-            'From: no-reply@.com'
-        );
+    //     // Establecer cabeceras para enviar email en formato HTML
+    //     $headers = array(
+    //         'Content-Type: text/html; charset=UTF-8',
+    //         'From: no-reply@.com'
+    //     );
         
-        $attachments = [$pdf_path];
-        $subject = "Tus resultados del formulario";
+    //     $attachments = [$pdf_path];
+    //     $subject = "Tus resultados del formulario";
         
-        if (wp_mail($correo, $subject, $message, $headers, $attachments)) {
-            $_SESSION['mensaje'] = "Hola $nombre, tus resultados fueron enviados correctamente al correo $correo";
-            $_SESSION['form_true'] = false;
-            $nuevo_post = [
-                'post_title'  => 'Formulario de ' . $nombre,
-                'post_status' => 'publish',
-                'post_type'   => 'cuestionarios',
-                'meta_input'  => [
-                    'email' => $correo,
-                    'nombre' => $nombre,
-                    'telefono' => $phone,
-                    'archivo_pdf' => $pdf_url
-                ]
-            ];
-            wp_insert_post($nuevo_post);
-        } else {
-            $_SESSION['mensaje'] = "Hubo un error al enviar el correo.";
-        }
+    //     if (wp_mail($correo, $subject, $message, $headers, $attachments)) {
+    //         $_SESSION['mensaje'] = "Hola $nombre, tus resultados fueron enviados correctamente al correo $correo";
+    //         $_SESSION['form_true'] = false;
+    //         $nuevo_post = [
+    //             'post_title'  => 'Formulario de ' . $nombre,
+    //             'post_status' => 'publish',
+    //             'post_type'   => 'cuestionarios',
+    //             'meta_input'  => [
+    //                 'email' => $correo,
+    //                 'nombre' => $nombre,
+    //                 'telefono' => $phone,
+    //                 'archivo_pdf' => $pdf_url
+    //             ]
+    //         ];
+    //         wp_insert_post($nuevo_post);
+    //     } else {
+    //         $_SESSION['mensaje'] = "Hubo un error al enviar el correo.";
+    //     }
         
-    }
+    // }
     
 }
 
@@ -152,6 +155,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['familiar-send'])){
 
 // Manejo de sesiones
 session_start();
+
+$imagenBase64 = $_SESSION['imagenBase64'];
+unset($_SESSION['imagenBase64']);
 
 $respuestas = $_SESSION['response'] ?? '';
 unset($_SESSION['response']);

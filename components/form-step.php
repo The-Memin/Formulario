@@ -5,6 +5,7 @@ $question = $args['question'] ?? "pregunta #".$index;
 $answers = $args['answers'] ?? [];
 $area = $args['area'] ?? "n/a";
 $i = $args['i'] ?? 0;
+$slug = $args['slug'] ?? '';
 ?>
 
 <div class="m-form-step <?php echo $index==1?'is-active':'' ?>">
@@ -17,7 +18,7 @@ $i = $args['i'] ?? 0;
         <div class="m-answers">
             <?php foreach ($answers as $answer) : ?>
                 <label>
-                    <input class="js-answer" type="radio" name="response-<?php echo $i."-".$area;?>" value="<?php echo esc_attr($answer['question_weight']); ?>"> 
+                    <input class="js-answer" type="radio" name="response-<?php echo $i."-".$slug;?>" value="<?php echo esc_attr($answer['question_weight']); ?>"> 
                     <?php echo esc_html($answer['answer']); ?>
                 </label>
             <?php endforeach; ?>

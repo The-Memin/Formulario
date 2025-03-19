@@ -5,6 +5,7 @@ Displays single posts
 require_once 'data/form-questions.php';
 require_once 'backend/post-formulario.php';
 $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
+
 ?>
 <?php get_header() ?>
 
@@ -38,7 +39,7 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
     	<div class="progress-bar"></div>
 	</div>
 	
-	<form class="m-form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="POST">
+	<form id="formulario" class="m-form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="POST">
 		
 		<?php 
 		    $index = 0; 
@@ -55,6 +56,7 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 							'question' => $question['question'],
 							'answers' => $question['answers'],
 							'size' => $total_length,
+							'slug' => $area,
 						];
 						get_template_part('components/form', 'step', $args);
 					}
@@ -70,7 +72,7 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 			<input type="email" name="correo" placeholder="Tu correo" required>
 			<button class="btn btn-submit" type="submit" name="enviar">Enviar</button>
     	</fieldset>
-	
+		
 	</form>
 	<?php endif; ?>
 
@@ -78,17 +80,29 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 	<img class="m-logo" src="<?php echo esc_url(get_field('logo','option'));?>" alt="logo-dip-insait">
     <div class="l-mensaje">
         <h3><?php echo $mensaje;?></h3>
-		<button class="btn btn-return">Volver al formulario</button>
+		<a href="<?php esc_url(home_url('/')) ?>" class="btn btn-return">Volver al formulario</a>
     </div>
+
+	
 	<?php
 	$args = [
 		'resultados'=>$resultados_area,
 		'resultado_global'=>$resultado_global,
 		'ponderacion_total'=>$ponderacion_total,
+		'resultados_area'=>$resultados,
 	];
 	get_template_part('components/form', 'htmltest', $args);
 	?>
 	<?php endif; ?>
+	<?php
+	foreach ($all_questions as $area => $questions) {
+		if ($area != 'familiar' || ($area == 'familiar' && $is_familiar)):?>
+			<canvas id="canvas-<?php echo $area?>" class="canvasGrafic" width="100" height="100"></canvas>
+		<?php 
+		endif;
+	}
+	?>
+	<img src="<?php echo $imagenBase64;?>" alt="">
 </div>
 
 
