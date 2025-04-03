@@ -80,13 +80,29 @@ function get_html($resultados, $resultado_global, $ponderacion_total, $resultado
             </tfoot>";
 
     $tables = "";
+    $firts_area = true;
+    $header_title = "<tr>
+                        <td colspan='3'>
+                            <h2 style='text-align: center; margin-bottom:1em'>Basado en tus respuestas</h2>
+                        </td>
+                    </tr>";
     foreach ($resultados as $area => $resultados_area) {
+        $title_table = $firts_area ? $header_title:'';
         $tables .= "<div style='margin-bottom: 3em'>
-                        <h3 style='text-transform: capitalize;text-align: center;font-size: 1em; margin-bottom: .8em; color: #226fc7; font-weight: bold'>$area</h3>
+                        
                         <table style='width: 100%; border-radius: 7px;position: relative'>
+                        ".$title_table."
+                            <tr>
+                                <td colspan='3'>
+                                <h3 style='width: 100%; text-transform: capitalize;text-align: center;font-size: 1em; margin-bottom: .8em; color: #226fc7; font-weight: bold; position: relative; left 50%'>$area</h3>
+                                </td>
+                            </tr>
+                        
                         ".$thead."
                             <tbody>
                         ";
+        $firts_area = false;
+        $area = str_replace('administración', 'administracion', $area);
         foreach($resultados_area as $index =>$resultados){
             $border_bottom = ($index != count($resultados_area)) ?"; border-bottom: 1px solid #116FC7":"; border-bottom: 3px solid #116FC7;";
             $bl_radius = ($index != count($resultados_area))?"":";border-radius: 0 0 0 8px";
@@ -134,7 +150,6 @@ function get_html($resultados, $resultado_global, $ponderacion_total, $resultado
             @page {
                 margin-top: 100px;
             }
-            
             *{
                 color: #242424;
                 font-family: Arial, Helvetica, sans-serif;
@@ -189,7 +204,7 @@ function get_html($resultados, $resultado_global, $ponderacion_total, $resultado
             </div>
             <div style='position:relative; top:40px'>
                 <header style='margin-bottom:3em'>
-                    <h1 style='text-align: center;margin-bottom: .6em'>Diagnostico empresarial</h1>
+                    <h1 style='text-align: center;margin-bottom: .6em'>Diagnóstico empresarial</h1>
                     <p style='text-align: center; color:#787878; font-size: .85em'>Formulario llenado el ".date("d")." de $mes_es de ".date("Y")."</p>
                 </header>
                 <table style='width: 100%; border: 3px solid #FF9E0F; border-radius: 8px;'>
@@ -207,27 +222,24 @@ function get_html($resultados, $resultado_global, $ponderacion_total, $resultado
                     </tr>
                 </table>
                 <div style='margin-top: 4em;'>
-                    <h2 style='text-align: center; margin-bottom:1em'>Basado en tus respuestas</h2>
 
                     ".$tables."
 
                 </div>
-                <div class='note' style='margin-top: 4em; position: relative; width:80%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 1.4em 0 1.4em 1em'>
-                    <p style='font-weight:bold; line-height: 1.6em; font-size: .75em'>
-                        Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular 2215845267 o mándanos
-                        un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
-                    </p>
-                </div>
+                <footer style='display:table; page-break-inside: auto;margin-top: 4em; width:100%; position: relative; left:50%; transform: translateX(-50%)'>
+                    <div class='note' style='margin-bottom: 4em; position: relative; width:90%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 1.3em 0 1.3em 1em'>
+                        <p style='font-weight:bold; line-height: 1.5em; font-size:.75em'>
+                            Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular 2215845267 o mándanos un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
+                        </p>
+                    </div>
 
-                
-                <footer style='margin-top: 4em; width:70%; position: relative; left:50%; transform: translateX(-50%)'>
-                    <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative; left:50%; transform: translateX(-50%)'>
+                    <div style='width:70%; border-top:2px solid #242424; padding-top:2em; position: relative; left:50%; transform: translateX(-50%)'>
                         <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
                             $redes
                         </ul>
                     </div>
                     
-                    <ul class='list-data' style='margin-top:3em; display: table'>
+                    <ul class='list-data' style='margin-top:3em; display: table; position: relative;width:90%;left:50%; transform: translateX(-50%)'>
                         $info_contact
                     </ul>
                 </footer>

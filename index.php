@@ -5,6 +5,10 @@ Displays single posts
 require_once 'data/form-questions.php';
 require_once 'backend/post-formulario.php';
 $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
+session_start();
+if (isset($_GET['url-back'])) {
+	$_SESSION['url-back'] = $_GET['url-back']; 	
+}
 
 ?>
 <?php get_header() ?>
@@ -25,7 +29,7 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 					No
 				</label>
 			</div>
-			<button class="btn btn-submit" type="submit" name="familiar-send">Enviar</button>
+			<button class="btn btn-submit" type="submit" name="familiar-send">Siguiente</button>
 		</form>
 	<?php endif;?>
 	<?php if ($form_true) : ?>
@@ -80,29 +84,31 @@ $img_url = get_template_directory_uri() . '/assets/images/logo-dip-insait.png';
 	<img class="m-logo" src="<?php echo esc_url(get_field('logo','option'));?>" alt="logo-dip-insait">
     <div class="l-mensaje">
         <h3><?php echo $mensaje;?></h3>
-		<a href="<?php esc_url(home_url('/')) ?>" class="btn btn-return">Volver al formulario</a>
+		<?php
+		if (!empty($_SESSION['url-back'])) {
+			$url = $_SESSION['url-back'];
+
+			// Si no comienza con http:// o https://, agrégale la URL base del sitio
+			if (!filter_var($url, FILTER_VALIDATE_URL)) {
+				$url = 'https://' . ltrim($url, '/');
+			}
+		?>
+			<a href="<?= htmlspecialchars($url, ENT_QUOTES, 'UTF-8') ?>" class="btn btn-return">Volver al sitio</a>
+		<?php } ?>
+
     </div>
 
 	
 	<?php
-	$args = [
-		'resultados'=>$resultados_area,
-		'resultado_global'=>$resultado_global,
-		'ponderacion_total'=>$ponderacion_total,
-		'resultados_area'=>$resultados,
-	];
-	get_template_part('components/form', 'htmltest', $args);
+	// $args = [
+	// 	'resultados'=>$resultados_area,
+	// 	'resultado_global'=>$resultado_global,
+	// 	'ponderacion_total'=>$ponderacion_total,
+	// 	'resultados_area'=>$resultados,
+	// ];
+	// get_template_part('components/form', 'htmltest', $args);
 	?>
 	<?php endif; ?>
-	<?php
-	foreach ($all_questions as $area => $questions) {
-		if ($area != 'familiar' || ($area == 'familiar' && $is_familiar)):?>
-			<canvas id="canvas-<?php echo $area?>" class="canvasGrafic" width="100" height="100"></canvas>
-		<?php 
-		endif;
-	}
-	?>
-	<img src="<?php echo $imagenBase64;?>" alt="">
 </div>
 
 

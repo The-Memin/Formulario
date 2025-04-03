@@ -25,8 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar'])) {
     $correo = isset($_POST['correo']) ? sanitize_email($_POST['correo']) : '';
     $nombre = isset($_POST['nombre']) ? sanitize_text_field($_POST['nombre']) : '';
     $phone = isset($_POST['phone']) ? preg_replace('/[^0-9]/', '', $_POST['phone']) : '';
-    
-
 
     // Procesar respuestas
     $respuestas = [];

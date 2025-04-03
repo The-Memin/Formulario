@@ -14,7 +14,7 @@ $total_length = 0;
 
 foreach ($form_admin_questions as $index => $question){
     $admin_questions[$index] = array(
-        'area'=> 'administracion',
+        'area'=> 'administración',
         'question'=>$question['question'],
         'answers'=>$question['answers']
     );

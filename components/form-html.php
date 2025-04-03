@@ -24,7 +24,7 @@ $html = "
             position: relative;
             border-spacing: 0;
             width: 100%;
-            page-break-inside: auto
+            page-break-inside: auto;
         }
         thead {
             display: table-header-group;
@@ -122,50 +122,32 @@ $html = "
             </div>
 
         </div>
-        <div class='note' style='margin-top: 4em; position: relative; width:80%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 2em 0 2em 1em'>
-            <p style='font-weight:bold; line-height: 1.5em'>
-                Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular tal o mándanos
-                un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
-            </p>
-        </div>
+        
 
         
-        <footer style='margin-top: 4em; width:70%; position: relative;left:50%; transform: translateX(-50%);'>
-            <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative'>
-                <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
-                    <li style='display: table-cell; padding-right: 1em;'>
-                        <a href=''>
-                            <img src='assets/images/instagram.png' alt=''>
-                        </a>
-                    </li>
-                    <li style='display: table-cell; padding-right: 1em;'>
-                        <a href=''>
-                            <img src='assets/images/facebook.png' alt=''>
-                        </a>
-                    </li>
-                    <li style='display: table-cell;'>
-                        <a href=''>
-                            <img src='./assets/images/whatsapp.png' alt=''>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <footer style='margin-top: 4em; width:70%; position: relative; left:50%; transform: translateX(-50%)'>
             
-            <ul class='list-data' style='margin-top:3em; display: table'>
-                <li style='display: table; padding-bottom:1em'>
-                    <img style='display: table-cell; ' src='./assets/images/map-solid-36.png' alt=''>
-                    <p style='display: table-cell; vertical-align: middle; padding-left: .5em'>
-                        Plaza Marsala, sobre Vía Atlixcáyotl 3246-2º Piso, local 203B San
-                        Martinito, Puebla
-                    </p>
-                </li>
-                <li style='display: table'>
-                    <img style='display: table-cell; vertical-align: top' src='./assets/images/phone-solid-36.png' alt=''>
-                    <p style='display: table-cell; vertical-align: middle; padding-left: .5em'>
-                        Teléfono/whatsapp: 2215845267
-                    </p>
-                </li>
-            </ul>
+            <table>
+                <tr>
+                    <div class='note' style='margin-bottom: 4em; position: relative; width:100%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 2em 0 2em 1em'>
+                        <p style='font-weight:bold; line-height: 1.5em'>
+                            Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular 2215845267 o mándanos un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
+                        </p>
+                    </div>
+                </tr>
+                <tr>
+                    <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative; left:50%; transform: translateX(-50%)'>
+                    <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
+                        $redes
+                    </ul>
+                </div>
+                </tr>
+                <tr>
+                    <ul class='list-data' style='margin-top:3em; display: table'>
+                    $info_contact
+                    </ul>
+                </tr>
+            </table>
         </footer>
     </div>
 </body>

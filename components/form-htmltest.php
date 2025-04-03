@@ -82,14 +82,27 @@ $tfoot = "<tfoot style='display: table-footer-group;'>
         </tfoot>";
 
 $tables = "";
-
+$firts_area = true;
+$header_title = "<tr>
+                    <td colspan='3'>
+                        <h2 style='text-align: center; margin-bottom:1em'>Basado en tus respuestas</h2>
+                    </td>
+                </tr>";
 foreach ($resultados as $area => $resultados_area) {
+    $title_table = $firts_area ? $header_title:'';
     $tables .= "<div style='margin-bottom: 3em'>
-                    <h3 style='text-transform: capitalize;text-align: center;font-size: 1em; margin-bottom: .8em; color: #226fc7; font-weight: bold'>$area</h3>
+                    
                     <table style='width: 100%; border-radius: 7px;position: relative'>
+                        ".$title_table."
+                        <tr>
+                            <td colspan='3'>
+                            <h3 style='width: 100%; text-transform: capitalize;text-align: center;font-size: 1em; margin-bottom: .8em; color: #226fc7; font-weight: bold; position: relative; left 50%'>$area</h3>
+                            </td>
+                        </tr>
                     ".$thead."
                         <tbody>
                     ";
+    $firts_area = false;
     foreach($resultados_area as $index =>$resultados){
         $border_bottom = ($index != count($resultados_area)) ?"; border-bottom: 1px solid #116FC7":"; border-bottom: 3px solid #116FC7;";
         $bl_radius = ($index != count($resultados_area))?"":";border-radius: 0 0 0 8px";
@@ -153,19 +166,19 @@ echo "
         </tr>
     </table>
     <div style='margin-top: 4em;'>
-        <h2 style='text-align: center; margin-bottom:1em'>Basado en tus respuestas</h2>
-
         ".$tables."
 
     </div>
-    <div class='note' style='margin-top: 4em; position: relative; width:80%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 2em 0 2em 1em'>
-        <p style='font-weight:bold; line-height: 1.5em'>
-            Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular 2215845267 o mándanos un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
-        </p>
-    </div>
+    
 
         
-    <footer style='margin-top: 4em; width:70%; position: relative; left:50%; transform: translateX(-50%)'>
+    <footer style='display:table; page-break-inside: auto;margin-top: 4em; width:70%; position: relative; left:50%; transform: translateX(-50%)'>
+        <div class='note' style='margin-bottom: 4em; position: relative; width:100%;left:50%; transform: translateX(-50%); border-left: 3px solid #116FC7; padding: 2em 0 2em 1em'>
+            <p style='font-weight:bold; line-height: 1.5em; font-size:.75em'>
+                Si quieres conocer en mayor profundidad el resultado, puedes comunicarte con nosotros al celular 2215845267 o mándanos un WhatsApp con tu nombre para que nos pongamos en contacto contigo.
+            </p>
+        </div>
+
         <div style='width:80%; border-top:2px solid #242424; padding-top:2em; position: relative; left:50%; transform: translateX(-50%)'>
             <ul style='display: table;position: relative;left: 50%; transform: translateX(-50%);'>
                 $redes

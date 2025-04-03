@@ -72,8 +72,13 @@
 }
 
 .m-welcome{
-    font-size: 1.3em;
     margin-bottom: 2.4em;
+    width: 80%;
+    line-height: 1.4em;
+    font-size: 1em;
+    @include desktop{
+        font-size: 1.3em;
+    }
 }
 
 .btn{
@@ -81,10 +86,15 @@
     padding: 10px 30px;
     border: 1px solid gray;
     border-radius: 5px;
-    
+    text-align: center;
     @include desktop{
         width: fit-content;
         min-width: 10em;
+    }
+    &--yellow{
+        text-decoration: none;
+        color: #242424;
+        background-color: $yellow-1;
     }
 }
 
@@ -237,17 +247,10 @@
     border: 1px solid red;
 }
 
-// #miGrafica{
-//     opacity: 0;
-//     position: absolute;
-// }
-
-tbody tr:last-child td{
-    border-bottom: 3px solid #226fc7 !important;
-} 
-tbody tr:last-child td:first-child{
-    border-radius: 0 0 0 8px;
-}
-tbody tr:last-child td:last-child{
-    border-radius: 0 0 8px 0;
+.m-container-inicio{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
